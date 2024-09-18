@@ -1,0 +1,1096 @@
+{
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "opstools",
+        "title": "networktools",
+        "contact": {},
+        "version": "0.0.1"
+    },
+    "host": "",
+    "basePath": "",
+    "paths": {
+        "/api/netorktools/dns": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "networktools"
+                ],
+                "summary": "域名解析",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户令牌 Token 登录后产生，需为管理员",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "输入参数",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.DnsI"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "desc",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Response-model_DnsRes"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/netorktools/ping": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "networktools"
+                ],
+                "summary": "ping 扫描",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户令牌 Token 登录后产生，需为管理员",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "输入参数",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.PingI"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "desc",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Response-model_PingRes"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/netorktools/ports": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "networktools"
+                ],
+                "summary": "IP 端口扫描",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户令牌 Token 登录后产生，需为管理员",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "输入参数",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.PortsIPProtocal"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "desc",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Response-model_PortsRes"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/netorktools/ssl": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "networktools"
+                ],
+                "summary": "IP 端口扫描",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户令牌 Token 登录后产生，需为管理员",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "输入参数",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.SSLI"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "desc",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Response-model_SSLCert"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/system/user": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "systemAPI"
+                ],
+                "summary": "更新用户信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户令牌 Token 登录后产生",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "用户角色",
+                        "name": "user-role",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "修改后的数据",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UserUpdate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Response-string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "systemAPI"
+                ],
+                "summary": "增加用户",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户令牌 Token 登录后产生",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "用户角色",
+                        "name": "user-role",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "修改后的数据",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UserAdd"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Response-string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/system/user/{userId}": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "systemAPI"
+                ],
+                "summary": "删除用户",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户令牌 Token 登录后产生",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "用户角色",
+                        "name": "user-role",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "用户id",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Response-string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/system/userlist": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "systemAPI"
+                ],
+                "summary": "查询用户通过userid",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户令牌 Token 登录后产生",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "用户角色",
+                        "name": "user-role",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "修改后的数据",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.ListParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Response-model_UserListPage"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/current": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "loginAPI"
+                ],
+                "summary": "获取当前登录用户",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户令牌 Token 登录后产生",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Response-model_UserLoginReturn"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "loginAPI"
+                ],
+                "summary": "当前用户更新自己的信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户令牌 Token 登录后产生",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "修改后的数据",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UserUpdateBySelf"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Response-string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/login": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "loginAPI"
+                ],
+                "summary": "用户登录",
+                "parameters": [
+                    {
+                        "description": "输入参数",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UserLogin"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Response-model_UserLoginReturn"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/logout": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "loginAPI"
+                ],
+                "summary": "用户退出",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户令牌 Token 登录后产生",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Response-string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/password": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "loginAPI"
+                ],
+                "summary": "当前用户更新自己的密码",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户令牌 Token 登录后产生",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "修改后的数据",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UserSecurityPasswordChange"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Response-string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/register": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "loginAPI"
+                ],
+                "summary": "用户注册",
+                "parameters": [
+                    {
+                        "description": "输入参数",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UserRegister"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Response-string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "controller.Response-model_DnsRes": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/model.DnsRes"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.Response-model_PingRes": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/model.PingRes"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.Response-model_PortsRes": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/model.PortsRes"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.Response-model_SSLCert": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/model.SSLCert"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.Response-model_UserListPage": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/model.UserListPage"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.Response-model_UserLoginReturn": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/model.UserLoginReturn"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.Response-string": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "string"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.DnsI": {
+            "type": "object",
+            "required": [
+                "domain"
+            ],
+            "properties": {
+                "dnsServer": {
+                    "type": "string"
+                },
+                "domain": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.DnsRes": {
+            "type": "object",
+            "properties": {
+                "dnsServer": {
+                    "type": "string"
+                },
+                "domain": {
+                    "type": "string"
+                },
+                "ip": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "parsingTime": {
+                    "type": "string"
+                },
+                "startTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.ListParams": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string"
+                },
+                "current": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "sortFiled": {
+                    "type": "string"
+                },
+                "sortOrder": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "string"
+                },
+                "userRole": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.PingI": {
+            "type": "object",
+            "required": [
+                "input"
+            ],
+            "properties": {
+                "input": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.PingRes": {
+            "type": "object",
+            "properties": {
+                "aveTime": {
+                    "type": "string"
+                },
+                "checkPoint": {
+                    "type": "string"
+                },
+                "dropRate": {
+                    "type": "number"
+                },
+                "ip": {
+                    "type": "string"
+                },
+                "maxTime": {
+                    "type": "string"
+                },
+                "minTime": {
+                    "type": "string"
+                },
+                "startTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.PortsIPProtocal": {
+            "type": "object",
+            "properties": {
+                "portsip": {
+                    "type": "string"
+                },
+                "protocal": {
+                    "description": "是 tcp 还是 udp，默认 tcp",
+                    "type": "string"
+                }
+            }
+        },
+        "model.PortsRes": {
+            "type": "object",
+            "properties": {
+                "checkPoint": {
+                    "type": "string"
+                },
+                "consumTime": {
+                    "type": "integer"
+                },
+                "portScanR": {},
+                "startTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.SSLCert": {
+            "type": "object",
+            "properties": {
+                "issuer": {
+                    "description": "颁发者",
+                    "type": "string"
+                },
+                "notAfter": {
+                    "description": "结束时间",
+                    "type": "string"
+                },
+                "notBefore": {
+                    "description": "开始时间",
+                    "type": "string"
+                },
+                "publicKeyAlgorithm": {
+                    "description": "加密算法",
+                    "type": "string"
+                },
+                "remainingDays": {
+                    "description": "剩余天数",
+                    "type": "string"
+                },
+                "serialNumber": {
+                    "description": "证书序列号",
+                    "type": "string"
+                },
+                "signatureAlgorithm": {
+                    "description": "签名算法",
+                    "type": "string"
+                },
+                "subject": {
+                    "description": "证书域名",
+                    "type": "string"
+                }
+            }
+        },
+        "model.SSLI": {
+            "type": "object",
+            "required": [
+                "domain"
+            ],
+            "properties": {
+                "domain": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.UserAdd": {
+            "type": "object",
+            "required": [
+                "account"
+            ],
+            "properties": {
+                "account": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "boolean"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "userAvatar": {
+                    "type": "string"
+                },
+                "userRole": {
+                    "type": "string",
+                    "example": "0"
+                }
+            }
+        },
+        "model.UserByUserId": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "userAvatar": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "string",
+                    "example": "0"
+                },
+                "userRole": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.UserListPage": {
+            "type": "object",
+            "properties": {
+                "result": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.UserByUserId"
+                    }
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.UserLogin": {
+            "type": "object",
+            "required": [
+                "account",
+                "password"
+            ],
+            "properties": {
+                "account": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.UserLoginReturn": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string"
+                },
+                "createdat": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "boolean"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "userAvatar": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "string",
+                    "example": "0"
+                },
+                "userRole": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.UserRegister": {
+            "type": "object",
+            "required": [
+                "account",
+                "password",
+                "rePassword"
+            ],
+            "properties": {
+                "account": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "rePassword": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.UserSecurityPasswordChange": {
+            "type": "object",
+            "required": [
+                "oldPassword",
+                "password",
+                "rePassword"
+            ],
+            "properties": {
+                "oldPassword": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "rePassword": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.UserUpdate": {
+            "type": "object",
+            "required": [
+                "account",
+                "userId"
+            ],
+            "properties": {
+                "account": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "boolean"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "rePassword": {
+                    "type": "string"
+                },
+                "userAvatar": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "string",
+                    "example": "0"
+                },
+                "userRole": {
+                    "type": "string",
+                    "example": "0"
+                }
+            }
+        },
+        "model.UserUpdateBySelf": {
+            "type": "object",
+            "required": [
+                "account",
+                "userId"
+            ],
+            "properties": {
+                "account": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "boolean"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "userAvatar": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "string",
+                    "example": "0"
+                }
+            }
+        }
+    }
+}
