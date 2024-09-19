@@ -7,12 +7,12 @@ export default [
       { name: '注册', path: '/user/register', component: './User/Register' },
     ],
   },
-  { path: '/welcome', name: '欢迎', icon: 'smile', component: './Welcome' },
+  { path: '/welcome', name: '系统状态', icon: 'DashboardOutlined', component: './Welcome' },
   {
     path: '/system',
     icon: 'setting',
     access: 'canAdmin',
-    name: '系统设置',
+    name: '系统管理',
     routes: [
       {
         path: '/system/user',

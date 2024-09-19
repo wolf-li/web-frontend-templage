@@ -1,164 +1,289 @@
-import { PageContainer } from '@ant-design/pro-components';
-import { useModel } from '@umijs/max';
-import { Card, theme } from 'antd';
-import React from 'react';
+import { Tiny } from '@ant-design/charts';
+import { Line } from '@ant-design/plots';
+import { ProCard, ProDescriptions, StatisticCard } from '@ant-design/pro-components';
+import { useState } from 'react';
+const { Statistic } = StatisticCard;
 
-/**
- * 每个单独的卡片，为了复用样式抽成了组件
- * @param param0
- * @returns
- */
-const InfoCard: React.FC<{
-  title: string;
-  index: number;
-  desc: string;
-  href: string;
-}> = ({ title, href, index, desc }) => {
-  const { useToken } = theme;
+const Dashboard: React.FC = () => {
+  const [responsive, setResponsive] = useState(false);
+  const [date, setDate] = useState('');
+  const getNewDate = () => {
+    const time = new Date();
+    const year = time.getFullYear();
+    const month = time.getMonth() + 1;
+    const day = time.getDate();
+    const hours = time.getHours();
+    const minuate = time.getMinutes();
+    const seconde = time.getSeconds();
+    const t = year + '年' + month + '月' + day + '日' + ' ' + hours + ':' + minuate + ':' + seconde;
+    setDate(t);
+  };
+  setInterval(getNewDate, 1000);
 
-  const { token } = useToken();
+  const data = [
+    264, 417, 438, 887, 309, 397, 550, 575, 563, 430, 525, 592, 492, 467, 513, 546, 983, 340, 539,
+    243, 226, 192,
+  ].map((value, index) => ({ value, index }));
+  const config1 = {
+    data,
+    width: 460,
+    height: 100,
+    padding: 8,
+    shapeField: 'smooth',
+    xField: 'index',
+    yField: 'value',
+    style: {
+      fill: '#d6e3fd',
+      fillOpacity: 0.6,
+    },
+  };
+
+  const labelMap = {
+    disk: '硬盘',
+    raid: 'RAID类型',
+  };
+
+  const systemInfo = {
+    systemSoftware: {
+      version: 'v0.0.2',
+      os: {
+        name: 'CentOS Linux',
+        version: '8.3.2011',
+        kernel: '4.18.0-305.el8.x86_64',
+      },
+      database: {
+        name: 'MySQL',
+        version: '5.7.33',
+      },
+      webserver: {
+        name: 'Apache',
+        version: '2.4.41',
+      },
+      other: ['nginx', 'php', 'python', 'java'],
+    },
+    systemHardware: {
+      cpu: {
+        manufacturer: 'Intel',
+        model: 'Xeon Gold 6248',
+        cores: 20,
+        threads: 40,
+        frequency: '2.4 GHz',
+        cache: '38.5 MB',
+      },
+      memory: {
+        size: '128 GB',
+        type: 'DDR4',
+        speed: '2666 MHz',
+        swapsize: '1 GB',
+      },
+      storage: {
+        disk: [
+          {
+            type: 'SSD',
+            size: '480 GB',
+            interface: 'NVMe',
+            rpm: '',
+          },
+          {
+            type: 'HDD',
+            size: '4 TB',
+            interface: 'SATA',
+            rpm: '7200 rpm',
+          },
+        ],
+        raid: 'RAID 1',
+      },
+      network: {
+        interfaces: [
+          {
+            name: 'eth0',
+            speed: '10 Gbps',
+          },
+          {
+            name: 'eth1',
+            speed: '1 Gbps',
+          },
+        ],
+      },
+    },
+  };
+
+  const percent = 0.7;
+  const config = {
+    percent,
+    width: 120,
+    height: 120,
+    color: ['#E8EFF5', '#66AFF4'],
+    annotations: [
+      {
+        type: 'text',
+        style: {
+          text: `${percent * 100}%`,
+          x: '50%',
+          y: '50%',
+          textAlign: 'center',
+          fontSize: 16,
+          fontStyle: 'bold',
+        },
+      },
+    ],
+  };
 
   return (
-    <div
-      style={{
-        backgroundColor: token.colorBgContainer,
-        boxShadow: token.boxShadow,
-        borderRadius: '8px',
-        fontSize: '14px',
-        color: token.colorTextSecondary,
-        lineHeight: '22px',
-        padding: '16px 19px',
-        minWidth: '220px',
-        flex: 1,
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          gap: '4px',
-          alignItems: 'center',
-        }}
-      >
-        <div
-          style={{
-            width: 48,
-            height: 48,
-            lineHeight: '22px',
-            backgroundSize: '100%',
-            textAlign: 'center',
-            padding: '8px 16px 16px 12px',
-            color: '#FFF',
-            fontWeight: 'bold',
-            backgroundImage:
-              "url('https://gw.alipayobjects.com/zos/bmw-prod/daaf8d50-8e6d-4251-905d-676a24ddfa12.svg')",
-          }}
-        >
-          {index}
-        </div>
-        <div
-          style={{
-            fontSize: '16px',
-            color: token.colorText,
-            paddingBottom: 8,
-          }}
-        >
-          {title}
-        </div>
-      </div>
-      <div
-        style={{
-          fontSize: '14px',
-          color: token.colorTextSecondary,
-          textAlign: 'justify',
-          lineHeight: '22px',
-          marginBottom: 8,
-        }}
-      >
-        {desc}
-      </div>
-      <a href={href} target="_blank" rel="noreferrer">
-        了解更多 {'>'}
-      </a>
-    </div>
+    <>
+      <ProCard
+        gutter={[16, 16]}
+        title="系统运行情况"
+        extra={date}
+        split={responsive ? 'horizontal' : 'vertical'}
+        headerBordered
+      ></ProCard>
+
+      <br />
+
+      <ProCard gutter={[16, 16]}>
+        <ProCard split="horizontal" colSpan="70%" title="资源使用" headerBordered>
+          <ProCard split="vertical">
+            <StatisticCard
+              chartPlacement="right"
+              statistic={{
+                title: 'CPU使用率',
+                value: 17,
+                precision: 2,
+                suffix: '%',
+              }}
+              chart={<Tiny.Ring {...config} />}
+              footer={
+                <>
+                  <Statistic
+                    value={systemInfo.systemHardware.cpu.threads}
+                    title="CPU核数:"
+                    layout="horizontal"
+                  />
+                </>
+              }
+            />
+            <StatisticCard
+              chartPlacement="right"
+              statistic={{
+                title: '内存占用率',
+                value: 13.2,
+                precision: 2,
+                suffix: '%',
+              }}
+              chart={<Tiny.Ring {...config} />}
+              footer={
+                <>
+                  <Statistic
+                    value={systemInfo.systemHardware.memory.size}
+                    title="物理内存:"
+                    layout="horizontal"
+                  />
+                  <Statistic
+                    value={systemInfo.systemHardware.memory.swapsize}
+                    title="交换分区:"
+                    layout="horizontal"
+                  />
+                </>
+              }
+            />
+            <StatisticCard
+              chartPlacement="right"
+              statistic={{
+                title: '磁盘使用率',
+                value: 17,
+                precision: 2,
+                suffix: '%',
+              }}
+              chart={<Tiny.Ring {...config} />}
+              footer={
+                <>
+                  {systemInfo.systemHardware.storage.disk.map((item, index) => (
+                    <div key={index}>
+                      <Statistic
+                        value={item.size}
+                        title={'磁盘' + index + '的容量: '}
+                        layout="horizontal"
+                      />
+                    </div>
+                  ))}
+                </>
+              }
+            />
+          </ProCard>
+          <ProCard>
+            <StatisticCard title="网卡1状态" chart={<Line {...config1} />} />
+            <StatisticCard title="网卡2状态" chart={<Line {...config1} />} />
+          </ProCard>
+        </ProCard>
+
+        <ProCard direction="column">
+          <ProCard title="系统硬件信息" type="inner" bordered>
+            <ProDescriptions column={1}>
+              <ProDescriptions.Item label="CPU 型号">
+                {systemInfo.systemHardware.cpu.manufacturer +
+                  ' ' +
+                  systemInfo.systemHardware.cpu.model +
+                  '' +
+                  systemInfo.systemHardware.cpu.frequency +
+                  ' ' +
+                  systemInfo.systemHardware.cpu.cache}
+              </ProDescriptions.Item>
+              <ProDescriptions.Item label="内存型号">
+                {Object.entries(systemInfo.systemHardware.memory).map(([key, value]) => (
+                  <div key={key}>{value}&nbsp;</div>
+                ))}
+              </ProDescriptions.Item>
+              {Object.entries(systemInfo.systemHardware.storage).map(([key, value]) => (
+                <ProDescriptions.Item label={labelMap[key] || key} key={key}>
+                  {typeof value === 'object' ? (
+                    <ul>
+                      {Object.values(value).map((item, index) => (
+                        <li key={index}>
+                          {Object.values(item).join(' ')} {/* 使用空格分隔各个属性值 */}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <span>{value}</span>
+                  )}
+                </ProDescriptions.Item>
+              ))}
+            </ProDescriptions>
+          </ProCard>
+          <br />
+          <ProCard title="系统软件信息" type="inner" bordered>
+            <ProDescriptions column={1}>
+              <ProDescriptions.Item label="系统版本">
+                {systemInfo.systemSoftware.version}
+              </ProDescriptions.Item>
+              <ProDescriptions.Item label="操作系统">
+                {systemInfo.systemSoftware.os.name + ' ' + systemInfo.systemSoftware.os.version}
+              </ProDescriptions.Item>
+              <ProDescriptions.Item label="内核版本">
+                {systemInfo.systemSoftware.os.kernel}
+              </ProDescriptions.Item>
+              <ProDescriptions.Item label="MySQL数据库">
+                {systemInfo.systemSoftware.database.name +
+                  ' ' +
+                  systemInfo.systemSoftware.database.version}
+              </ProDescriptions.Item>
+              <ProDescriptions.Item label="Web服务">
+                {systemInfo.systemSoftware.webserver.name +
+                  ' ' +
+                  systemInfo.systemSoftware.webserver.version}
+              </ProDescriptions.Item>
+              <ProDescriptions.Item label="其他">
+                {Object.entries(systemInfo.systemSoftware.other).map(([key, value]) => (
+                  <div key={key}>{value}&nbsp;</div>
+                ))}
+              </ProDescriptions.Item>
+            </ProDescriptions>
+          </ProCard>
+        </ProCard>
+      </ProCard>
+    </>
   );
 };
 
-const Welcome: React.FC = () => {
-  const { token } = theme.useToken();
-  const { initialState } = useModel('@@initialState');
-  return (
-    <PageContainer>
-      <Card
-        style={{
-          borderRadius: 8,
-        }}
-        bodyStyle={{
-          backgroundImage:
-            initialState?.settings?.navTheme === 'realDark'
-              ? 'background-image: linear-gradient(75deg, #1A1B1F 0%, #191C1F 100%)'
-              : 'background-image: linear-gradient(75deg, #FBFDFF 0%, #F5F7FF 100%)',
-        }}
-      >
-        <div
-          style={{
-            backgroundPosition: '100% -30%',
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: '274px auto',
-            backgroundImage:
-              "url('https://gw.alipayobjects.com/mdn/rms_a9745b/afts/img/A*BuFmQqsB2iAAAAAAAAAAAAAAARQnAQ')",
-          }}
-        >
-          <div
-            style={{
-              fontSize: '20px',
-              color: token.colorTextHeading,
-            }}
-          >
-            欢迎使用 Ant Design Pro
-          </div>
-          <p
-            style={{
-              fontSize: '14px',
-              color: token.colorTextSecondary,
-              lineHeight: '22px',
-              marginTop: 16,
-              marginBottom: 32,
-              width: '65%',
-            }}
-          >
-            Ant Design Pro 是一个整合了 umi，Ant Design 和 ProComponents
-            的脚手架方案。致力于在设计规范和基础组件的基础上，继续向上构建，提炼出典型模板/业务组件/配套设计资源，进一步提升企业级中后台产品设计研发过程中的『用户』和『设计者』的体验。
-          </p>
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: 16,
-            }}
-          >
-            <InfoCard
-              index={1}
-              href="https://umijs.org/docs/introduce/introduce"
-              title="了解 umi"
-              desc="umi 是一个可扩展的企业级前端应用框架,umi 以路由为基础的，同时支持配置式路由和约定式路由，保证路由的功能完备，并以此进行功能扩展。"
-            />
-            <InfoCard
-              index={2}
-              title="了解 ant design"
-              href="https://ant.design"
-              desc="antd 是基于 Ant Design 设计体系的 React UI 组件库，主要用于研发企业级中后台产品。"
-            />
-            <InfoCard
-              index={3}
-              title="了解 Pro Components"
-              href="https://procomponents.ant.design"
-              desc="ProComponents 是一个基于 Ant Design 做了更高抽象的模板组件，以 一个组件就是一个页面为开发理念，为中后台开发带来更好的体验。"
-            />
-          </div>
-        </div>
-      </Card>
-    </PageContainer>
-  );
-};
-
-export default Welcome;
+export default Dashboard;

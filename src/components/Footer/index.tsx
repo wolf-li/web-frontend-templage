@@ -20,13 +20,13 @@ const Footer: React.FC = () => {
         {
           key: 'github',
           title: <GithubOutlined />,
-          href: 'https://github.com/ant-design/ant-design-pro',
+          href: 'https://github.com/wolf-li/web-frontend-templage.git',
           blankTarget: true,
         },
         {
-          key: 'Ant Design',
-          title: 'Ant Design',
-          href: 'https://ant.design',
+          key: 'web frontend template',
+          title: 'web frontend template',
+          href: 'https://github.com/wolf-li/web-frontend-templage.git',
           blankTarget: true,
         },
       ]}
